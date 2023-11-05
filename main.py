@@ -53,9 +53,8 @@ DATA_FILE = "pw_data.json"
 
 
 def change_word():
-    canvas.delete("current_text")
     new_word = choose_learning_card()["French"]
-    canvas.create_text([WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2], text=new_word, font=WORD_FONT, tags="current_text")
+    canvas.itemconfig("current_text", text=new_word)
 
 
 def correct_clicked():
@@ -100,5 +99,6 @@ incorrect_button = Button(text="❌", background=INCORRECT_BG_COLOR, fg=BUTTON_T
                           height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=incorrect_clicked)
 incorrect_button.grid(column=BUTTON_COLUMN_START+1, row=BUTTON_ROW_START, pady=BUTTON_PAD_Y,
                       padx=BUTTON_PAD_X,)
+
 
 window.mainloop()

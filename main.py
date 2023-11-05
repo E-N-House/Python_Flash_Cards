@@ -1,6 +1,5 @@
 from tkinter import *
 # import json
-# import pandas
 
 from button_clicks import *
 from create_card import choose_learning_word
@@ -67,14 +66,13 @@ canvas = Canvas(width=WINDOW_WIDTH, height=WINDOW_HEIGHT, background=BACKGROUND_
 # adding IMAGE Card to middle of screen using a grid system
 card_front_img = PhotoImage(file=CARD_FRONT_FILE)
 back_card_img = PhotoImage(file=CARD_BACK_FILE)
-current_word = (choose_learning_word())
 canvas.create_image(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, image=card_front_img,)
+
+# text on cards
+current_word = (choose_learning_word())
 canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2.5], text=LEARNING_LANGUAGE, font=LANGUAGE_FONT)
-canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2], text=current_word, font=WORD_FONT)
+learning_word = canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2], text=current_word, font=WORD_FONT)
 canvas.grid(column=0, row=0, columnspan=2)
-
-# FORM LABELS
-
 
 # BUTTONS
 correct_button = Button(text="✔", background=CORRECT_BG_COLOR, height=BUTTON_HEIGHT, width=BUTTON_WIDTH,

@@ -1,9 +1,9 @@
 import random
+from create_library import data
 
-test_list = [{"english": "hello", "french": "bonjour"}, {"english": "goodbye", "french": "aurevoir"}]
-
+user_words = data
 def choose_learning_word():
     print("word is chosen")
-    random_word = test_list[random.randint(0, len(test_list)-1)]["french"]
+    random_word = user_words[random.randint(0, len(user_words)-1)]["French"]
     return random_word
 

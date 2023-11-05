@@ -1,3 +1,6 @@
+from create_card import choose_learning_word
+
+
 def correct_clicked():
     print("correct click")
     return True

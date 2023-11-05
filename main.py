@@ -3,6 +3,7 @@ from tkinter import *
 # import pandas
 
 from button_clicks import *
+from create_card import choose_word
 
 
 LEARNING_LANGUAGE = "Français"
@@ -66,7 +67,7 @@ canvas = Canvas(width=WINDOW_WIDTH, height=WINDOW_HEIGHT, background=BACKGROUND_
 # adding IMAGE Card to middle of screen using a grid system
 card_front_img = PhotoImage(file=CARD_FRONT_FILE)
 back_card_img = PhotoImage(file=CARD_BACK_FILE)
-current_word = "Hello"
+current_word = choose_word()
 canvas.create_image(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, image=card_front_img,)
 canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2.5], text=LEARNING_LANGUAGE, font=LANGUAGE_FONT)
 canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2], text=current_word, font=WORD_FONT)
@@ -86,4 +87,3 @@ incorrect_button.grid(column=BUTTON_COLUMN_START+1, row=BUTTON_ROW_START, pady=B
                       padx=BUTTON_PAD_X,)
 
 window.mainloop()
-

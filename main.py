@@ -13,16 +13,12 @@ WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 526
 PADDING_WINDOW = 50
 BACKGROUND_COLOR = "#B1DDC6"
-COLOR_SECOND = "yellow"
-COLOR_THIRD = "#e2979c"
-COLOR_ERRORS = "#e7305b"
-ERROR_FONT = ("Arial", 20, "bold")
-
-WORD_FONT = ("Arial", 26, "bold")
-WORD_TEXT_COLOR = "white"
-WORD_BG_COLOR = "light blue"
 
 LANGUAGE_FONT = ("Arial", 16, "italic")
+WORD_FONT = ("Arial", 26, "bold")
+LEARNING_LANG_TEXT_COLOR = "white"
+BASE_LANG_TEXT_COLOR = "light blue"
+
 
 
 # ---------------------------- BUTTON VARIABLES--------------------------- #

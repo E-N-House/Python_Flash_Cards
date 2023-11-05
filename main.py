@@ -2,7 +2,7 @@ from tkinter import *
 # import json
 
 # from button_clicks import *
-from create_card import choose_learning_word
+from create_card import choose_learning_card
 
 
 LEARNING_LANGUAGE = "Français"
@@ -54,7 +54,7 @@ DATA_FILE = "pw_data.json"
 
 def change_word():
     canvas.delete("current_text")
-    new_word = (choose_learning_word())
+    new_word = choose_learning_card()["French"]
     canvas.create_text([WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2], text=new_word, font=WORD_FONT, tags="current_text")
 
 
@@ -86,7 +86,7 @@ back_card_img = PhotoImage(file=CARD_BACK_FILE)
 canvas.create_image(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, image=card_front_img,)
 
 # text on cards
-current_word = (choose_learning_word())
+current_word = choose_learning_card()["French"]
 canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2.5], text=LEARNING_LANGUAGE, font=LANGUAGE_FONT, tags="language_text")
 canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2], text=current_word, font=WORD_FONT, tags="current_text")
 canvas.grid(column=0, row=0, columnspan=2)

@@ -17,6 +17,7 @@ WORD_FONT = ("Arial", 26, "bold")
 LEARNING_LANG_TEXT_COLOR = "black"
 BASE_LANG_TEXT_COLOR = "white"
 
+TIMER = 3000
 
 # ---------------------------- BUTTON VARIABLES--------------------------- #
 CORRECT_BG_COLOR = "green"
@@ -46,20 +47,20 @@ DATA_FILE = "pw_data.json"
 
 
 def flip_card():
-    canvas.itemconfig("language_text", text="English", fill=BASE_LANG_TEXT_COLOR)
-    canvas.itemconfig("current_text", text=current_card["English"], fill=BASE_LANG_TEXT_COLOR)
-    canvas.itemconfig("card_image", image=card_back_img)
+    canvas.itemconfig(language_text, text="English", fill=BASE_LANG_TEXT_COLOR)
+    canvas.itemconfig(current_text, text=current_card["English"], fill=BASE_LANG_TEXT_COLOR)
+    canvas.itemconfig(card_image, image=card_back_img)
 
 
 def change_word():
     global current_card
     current_card = choose_learning_card()
     learning_word = current_card["French"]
-    canvas.itemconfig("language_text", text=LEARNING_LANGUAGE, fill=LEARNING_LANG_TEXT_COLOR)
-    canvas.itemconfig("current_text", text=learning_word, fill=LEARNING_LANG_TEXT_COLOR)
-    canvas.itemconfig("card_image", image=card_front_img)
-    window.after(3000, func=flip_card, )
-
+    canvas.itemconfig(language_text, text=LEARNING_LANGUAGE, fill=LEARNING_LANG_TEXT_COLOR)
+    canvas.itemconfig(current_text, text=learning_word, fill=LEARNING_LANG_TEXT_COLOR)
+    canvas.itemconfig(card_image, image=card_front_img)
+    # wait 3 seconds then flip
+    window.after(TIMER, func=flip_card, )
     return
 
 
@@ -80,13 +81,13 @@ canvas = Canvas(width=WINDOW_WIDTH, height=WINDOW_HEIGHT, background=BACKGROUND_
 # adding IMAGE Card to middle of screen using a grid system
 card_front_img = PhotoImage(file=CARD_FRONT_FILE)
 card_back_img = PhotoImage(file=CARD_BACK_FILE)
-canvas.create_image(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, image=card_front_img, tags="card_image")
+card_image = canvas.create_image(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, image=card_front_img,)
 
 # text on cards
-canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2.5], text="", font=LANGUAGE_FONT, tags="language_text",
-                   fill=LEARNING_LANG_TEXT_COLOR)
-canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2], text="", font=WORD_FONT, tags="current_text",
-                   fill=LEARNING_LANG_TEXT_COLOR)
+language_text = canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2.5], text="", font=LANGUAGE_FONT,
+                                   fill=LEARNING_LANG_TEXT_COLOR)
+current_text = canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2], text="", font=WORD_FONT,
+                                  fill=LEARNING_LANG_TEXT_COLOR)
 canvas.grid(column=0, row=0, columnspan=2)
 
 

@@ -12,8 +12,8 @@ WINDOW_HEIGHT = 526
 PADDING_WINDOW = 50
 BACKGROUND_COLOR = "#B1DDC6"
 
-LANGUAGE_FONT = ("Arial", 16, "italic")
-WORD_FONT = ("Arial", 26, "bold")
+LANGUAGE_FONT = ("Arial", 20, "italic")
+WORD_FONT = ("Arial", 30, "bold")
 LEARNING_LANG_TEXT_COLOR = "black"
 BASE_LANG_TEXT_COLOR = "white"
 

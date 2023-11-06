@@ -1,10 +1,11 @@
 import random
-from create_library import data
+from create_library import learning_data
 
-user_words = data
+# user_words = learning_data
+
 
 def choose_learning_card():
     # print("word is chosen")
-    random_card = random.choice(user_words)
+    random_card = random.choice(learning_data)
     return random_card
 

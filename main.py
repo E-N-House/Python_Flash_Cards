@@ -56,6 +56,7 @@ def change_word():
     global current_card, flip_timer
     window.after_cancel(flip_timer)
     current_card = choose_learning_card()
+    print(current_card)
     learning_word = current_card["French"]
     canvas.itemconfig(language_text, text=LEARNING_LANGUAGE, fill=LEARNING_LANG_TEXT_COLOR)
     canvas.itemconfig(current_text, text=learning_word, fill=LEARNING_LANG_TEXT_COLOR)

@@ -45,30 +45,34 @@ CARD_HEIGHT = 526
 DATA_FILE = "pw_data.json"
 
 
-def flip_card(card):
+def flip_card():
     canvas.itemconfig("language_text", text="English", fill=BASE_LANG_TEXT_COLOR)
-    canvas.itemconfig("current_text", text=card["English"], fill=BASE_LANG_TEXT_COLOR)
+    canvas.itemconfig("current_text", text=current_card["English"], fill=BASE_LANG_TEXT_COLOR)
     canvas.itemconfig("card_image", image=card_back_img)
 
 
 def change_word():
-    new_card = choose_learning_card()
-    learning_word = new_card["French"]
+    global current_card
+    current_card = choose_learning_card()
+    learning_word = current_card["French"]
     canvas.itemconfig("language_text", text=LEARNING_LANGUAGE, fill=LEARNING_LANG_TEXT_COLOR)
     canvas.itemconfig("current_text", text=learning_word, fill=LEARNING_LANG_TEXT_COLOR)
     canvas.itemconfig("card_image", image=card_front_img)
-    window.after_cancel("start_cancel")
-    return new_card
+    window.after(3000, func=flip_card, )
+
+    return
 
 
 # ---------------------------- UI SETUP ------------------------------- #
 
+current_card = {}
 
 # creating tk window
 window = Tk()
 window.config(bg=BACKGROUND_COLOR, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, pady=PADDING_WINDOW,
               padx=PADDING_WINDOW)
 window.title(PROJECT_NAME)
+
 
 # Creating canvas
 canvas = Canvas(width=WINDOW_WIDTH, height=WINDOW_HEIGHT, background=BACKGROUND_COLOR,
@@ -85,6 +89,9 @@ canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2], text="", font=WORD_FONT, t
                    fill=LEARNING_LANG_TEXT_COLOR)
 canvas.grid(column=0, row=0, columnspan=2)
 
+
+window.after(3000, func=flip_card,)
+
 # BUTTONS
 correct_button = Button(text="✔", background=CORRECT_BG_COLOR, height=BUTTON_HEIGHT, width=BUTTON_WIDTH,
                         fg=BUTTON_TEXT_COLOR, font=BUTTON_FONT, command=change_word)
@@ -95,11 +102,7 @@ incorrect_button = Button(text="❌", background=INCORRECT_BG_COLOR, fg=BUTTON_T
 incorrect_button.grid(column=BUTTON_COLUMN_START+1, row=BUTTON_ROW_START, pady=BUTTON_PAD_Y,
                       padx=BUTTON_PAD_X,)
 
-current_card = change_word()
-
-window.after(3000, flip_card(current_card), "start_cancel")
-
-window.after_cancel("start_cancel")
+change_word()
 
 window.mainloop()
 

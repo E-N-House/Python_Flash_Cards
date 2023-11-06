@@ -53,14 +53,15 @@ def flip_card():
 
 
 def change_word():
-    global current_card
+    global current_card, flip_timer
+    window.after_cancel(flip_timer)
     current_card = choose_learning_card()
     learning_word = current_card["French"]
     canvas.itemconfig(language_text, text=LEARNING_LANGUAGE, fill=LEARNING_LANG_TEXT_COLOR)
     canvas.itemconfig(current_text, text=learning_word, fill=LEARNING_LANG_TEXT_COLOR)
     canvas.itemconfig(card_image, image=card_front_img)
     # wait 3 seconds then flip
-    window.after(TIMER, func=flip_card, )
+    flip_timer = window.after(TIMER, func=flip_card, )
     return
 
 
@@ -91,7 +92,7 @@ current_text = canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2], text="", fo
 canvas.grid(column=0, row=0, columnspan=2)
 
 
-window.after(3000, func=flip_card,)
+flip_timer = window.after(3000, func=flip_card,)
 
 # BUTTONS
 correct_button = Button(text="✔", background=CORRECT_BG_COLOR, height=BUTTON_HEIGHT, width=BUTTON_WIDTH,

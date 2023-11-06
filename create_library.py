@@ -1,12 +1,9 @@
 import pandas
 from tkinter import messagebox
-DATA_FILE = "french_to_learn.csv"
+DATA_FILE = "data/french_to_learn.csv"
 
-DataFrame = pandas.read_csv("data/french_words.csv")
-# translates the data to a list containing dictionaries for each word
-data = DataFrame.to_dict(orient="records")
 
-def create_data_file():
+def access_data_file():
     """checks if a file exists. And if it doesn't create a text file using global constant DATA_FILE
     and fills in the column names as top row separated by spacer"""
     try:
@@ -14,11 +11,19 @@ def create_data_file():
     except FileNotFoundError:
         messagebox.showinfo(title="Creating File", message=f"Creating a file named {DATA_FILE}\n"
                                                            f"to store your information.")
-        file = open(DATA_FILE, mode="r")
-        file.write(data)
+        start_list = open("data/french_words.csv")
+        start_data = start_list.read()
+        file = open(DATA_FILE, mode="w")
+        file.write(start_data)
+        start_list.close()
     finally:
         file.close()
 
 
-learning_data = create_data_file()
+access_data_file()
+
+DataFrame = pandas.read_csv(DATA_FILE)
+
+# translates the data to a list containing dictionaries for each word
+learning_data = DataFrame.to_dict(orient="records")
 

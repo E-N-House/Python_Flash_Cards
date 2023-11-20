@@ -25,12 +25,16 @@ test_card = {'French': 'partie', 'English': 'part'}
 
 def update_data_file(card):
     global learning_data
+    print("learning data pre cut", learning_data)
+    # global DataFrame
     learning_data.remove(card)
-    print(learning_data)
-    update_data = pandas.DataFrame.to_csv(learning_data)
+    print("learning data", learning_data)
+    # print("dataframe", DataFrame)
+    new_dataframe = pandas.DataFrame(learning_data)
+    update_data = new_dataframe.to_csv(index=False)
     print(update_data)
     file = open(DATA_FILE, mode="w")
-    # file.write(learning_data.)
+    file.write(update_data)
     file.close()
 
 
@@ -39,7 +43,8 @@ DataFrame = pandas.read_csv(DATA_FILE)
 
 # translates the data to a list containing dictionaries for each word
 learning_data = DataFrame.to_dict(orient="records")
-update_data_file(test_card)
+#
+# update_data_file(test_card)
 
 
 

@@ -1,7 +1,7 @@
 from tkinter import *
 # import json
 from create_card import choose_learning_card
-from button_clicks import *
+from create_library import update_data_file
 
 LEARNING_LANGUAGE = "Français"
 BASE_LANGUAGE = "English"
@@ -45,6 +45,8 @@ CARD_HEIGHT = 526
 
 DATA_FILE = "pw_data.json"
 
+current_card = {}
+
 
 def flip_card():
     canvas.itemconfig(language_text, text="English", fill=BASE_LANG_TEXT_COLOR)
@@ -56,7 +58,7 @@ def change_word():
     global current_card, flip_timer
     window.after_cancel(flip_timer)
     current_card = choose_learning_card()
-    print(current_card)
+    print("current card is ", current_card)
     learning_word = current_card["French"]
     canvas.itemconfig(language_text, text=LEARNING_LANGUAGE, fill=LEARNING_LANG_TEXT_COLOR)
     canvas.itemconfig(current_text, text=learning_word, fill=LEARNING_LANG_TEXT_COLOR)
@@ -66,9 +68,18 @@ def change_word():
     return
 
 
+def correct_clicked():
+    update_data_file(current_card)
+    change_word()
+    print("yes")
+
+
+def incorrect_clicked():
+    change_word()
+    print("no")
+
 # ---------------------------- UI SETUP ------------------------------- #
 
-current_card = {}
 
 # creating tk window
 window = Tk()
@@ -97,11 +108,11 @@ flip_timer = window.after(3000, func=flip_card,)
 
 # BUTTONS
 correct_button = Button(text="✔", background=CORRECT_BG_COLOR, height=BUTTON_HEIGHT, width=BUTTON_WIDTH,
-                        fg=BUTTON_TEXT_COLOR, font=BUTTON_FONT, command=change_word)
+                        fg=BUTTON_TEXT_COLOR, font=BUTTON_FONT, command=correct_clicked)
 correct_button.grid(column=BUTTON_COLUMN_START, row=BUTTON_ROW_START, )
 
 incorrect_button = Button(text="❌", background=INCORRECT_BG_COLOR, fg=BUTTON_TEXT_COLOR, font=BUTTON_FONT,
-                          height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=change_word)
+                          height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=incorrect_clicked)
 incorrect_button.grid(column=BUTTON_COLUMN_START+1, row=BUTTON_ROW_START, pady=BUTTON_PAD_Y,
                       padx=BUTTON_PAD_X,)
 

@@ -20,9 +20,6 @@ def access_data_file():
         file.close()
 
 
-test_card = {'French': 'partie', 'English': 'part'}
-
-
 def update_data_file(card):
     global learning_data
     # global DataFrame
@@ -40,7 +37,6 @@ DataFrame = pandas.read_csv(DATA_FILE)
 # translates the data to a list containing dictionaries for each word
 learning_data = DataFrame.to_dict(orient="records")
 #
-# update_data_file(test_card)
 
 
 

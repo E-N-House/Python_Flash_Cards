@@ -1,5 +1,4 @@
 from tkinter import *
-# import json
 from create_card import choose_learning_card
 from create_library import update_data_file
 

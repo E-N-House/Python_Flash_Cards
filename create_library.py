@@ -16,6 +16,7 @@ def access_data_file():
 
 
 def update_data_file(card):
+    """Access current learning list and updates lang_to_learn.csv by removing known cards"""
     global learning_data
     learning_data.remove(card)
     # Chains creating dataframe and then creating updated csv file together

@@ -48,12 +48,15 @@ current_card = {}
 
 
 def flip_card():
+    """Reveals Base language translation of word on current card"""
     canvas.itemconfig(language_text, text="English", fill=BASE_LANG_TEXT_COLOR)
     canvas.itemconfig(current_text, text=current_card["English"], fill=BASE_LANG_TEXT_COLOR)
     canvas.itemconfig(card_image, image=card_back_img)
 
 
 def change_word():
+    """Changes the current word or card being tested after time passes.
+    Renders it onto the canvas in learning language"""
     global current_card, flip_timer
     window.after_cancel(flip_timer)
     current_card = choose_learning_card()
@@ -62,16 +65,18 @@ def change_word():
     canvas.itemconfig(current_text, text=learning_word, fill=LEARNING_LANG_TEXT_COLOR)
     canvas.itemconfig(card_image, image=card_front_img)
     # wait 3 seconds then flip
-    flip_timer = window.after(TIMER, func=flip_card, )
+    flip_timer = window.after(TIMER, func=flip_card)
     return
 
 
 def correct_clicked():
+    """when correct clicked runs update data file then changes word"""
     update_data_file(current_card)
     change_word()
 
 
 def incorrect_clicked():
+    """changes word in a funtion in case we need to add functionalty on unknown click"""
     change_word()
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -100,7 +105,7 @@ current_text = canvas.create_text([WINDOW_WIDTH/2, WINDOW_HEIGHT/2], text="", fo
 canvas.grid(column=0, row=0, columnspan=2)
 
 
-flip_timer = window.after(3000, func=flip_card,)
+flip_timer = window.after(TIMER, func=flip_card,)
 
 # BUTTONS
 correct_button = Button(text="✔", background=CORRECT_BG_COLOR, height=BUTTON_HEIGHT, width=BUTTON_WIDTH,

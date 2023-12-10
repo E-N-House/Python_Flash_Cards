@@ -26,8 +26,9 @@ def update_data_file(card):
     learning_data.remove(card)
     new_dataframe = pandas.DataFrame(learning_data)
     update_data = new_dataframe.to_csv(index=False)
-    file = open(DATA_FILE, mode="w")
+    file = open(DATA_FILE, mode="w",  encoding='utf-8')
     file.write(update_data)
+    print("hit line 31")
     file.close()
 
 

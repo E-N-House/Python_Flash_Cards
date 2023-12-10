@@ -115,5 +115,3 @@ incorrect_button.grid(column=BUTTON_COLUMN_START+1, row=BUTTON_ROW_START, pady=B
 change_word()
 
 window.mainloop()
-
-

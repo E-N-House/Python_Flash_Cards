@@ -13,6 +13,7 @@ def access_data_file():
                                                            f"to store your information.")
         start_list = open("data/french_words.csv")
         start_data = start_list.read()
+        # leave this as is if it is changed to utf-8 it shifts french lang characters to unicode
         file = open(DATA_FILE, mode="w")
         file.write(start_data)
         start_list.close()
@@ -26,9 +27,9 @@ def update_data_file(card):
     learning_data.remove(card)
     new_dataframe = pandas.DataFrame(learning_data)
     update_data = new_dataframe.to_csv(index=False)
+    # Use utf-8 to mitigate parsing errors in pandas caused by french unique characters
     file = open(DATA_FILE, mode="w",  encoding='utf-8')
     file.write(update_data)
-    print("hit line 31")
     file.close()
 
 

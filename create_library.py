@@ -1,44 +1,32 @@
 import pandas
 from tkinter import messagebox
 DATA_FILE = "data/french_to_learn.csv"
+SEED_LIST_FILE = "data/french_words.csv"
 
 
 def access_data_file():
-    """checks if a file exists. And if it doesn't create a text file using global constant DATA_FILE
-    and fills in the column names as top row separated by spacer"""
+    """Check if a file exists. If not, create it and fill in the column names as top row."""
     try:
-        file = open(DATA_FILE)
+        pandas.read_csv(DATA_FILE)
     except FileNotFoundError:
         messagebox.showinfo(title="Creating File", message=f"Creating a file named {DATA_FILE}\n"
                                                            f"to store your information.")
-        start_list = open("data/french_words.csv")
-        start_data = start_list.read()
-        # leave this as is if it is changed to utf-8 it shifts french lang characters to unicode
-        file = open(DATA_FILE, mode="w")
-        file.write(start_data)
-        start_list.close()
-    finally:
-        file.close()
+        start_data = pandas.read_csv(SEED_LIST_FILE)
+        start_data.to_csv(DATA_FILE, index=False)
 
 
 def update_data_file(card):
     global learning_data
-    # global DataFrame
     learning_data.remove(card)
-    new_dataframe = pandas.DataFrame(learning_data)
-    update_data = new_dataframe.to_csv(index=False)
-    # Use utf-8 to mitigate parsing errors in pandas caused by french unique characters
-    file = open(DATA_FILE, mode="w",  encoding='utf-8')
-    file.write(update_data)
-    file.close()
+    # Chains creating dataframe and then creating updated csv file together
+    pandas.DataFrame(learning_data).to_csv(DATA_FILE, index=False)
 
 
+# Check if the data file exists, and create it if necessary
 access_data_file()
-DataFrame = pandas.read_csv(DATA_FILE)
 
-# translates the data to a list containing dictionaries for each word
-learning_data = DataFrame.to_dict(orient="records")
-#
+# Read the data from the CSV file
+current_DataFrame = pandas.read_csv(DATA_FILE)
 
-
-
+# Translates the data to a list containing dictionaries for each word
+learning_data = current_DataFrame.to_dict(orient="records")
